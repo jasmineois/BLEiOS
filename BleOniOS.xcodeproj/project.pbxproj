@@ -12,6 +12,8 @@
 		07B5F09B1F2315AA002BB553 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B5F0991F2315AA002BB553 /* Main.storyboard */; };
 		07B5F09D1F2315AA002BB553 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07B5F09C1F2315AA002BB553 /* Assets.xcassets */; };
 		07B5F0A01F2315AA002BB553 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B5F09E1F2315AA002BB553 /* LaunchScreen.storyboard */; };
+		07B5F0AB1F23B38F002BB553 /* BleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B5F0AA1F23B38F002BB553 /* BleManager.swift */; };
+		07B5F0AD1F23D2C5002BB553 /* BleConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B5F0AC1F23D2C5002BB553 /* BleConst.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		07B5F09C1F2315AA002BB553 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07B5F09F1F2315AA002BB553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07B5F0A11F2315AA002BB553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07B5F0AA1F23B38F002BB553 /* BleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleManager.swift; sourceTree = "<group>"; };
+		07B5F0AC1F23D2C5002BB553 /* BleConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleConst.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,40 @@
 		07B5F0941F2315AA002BB553 /* BleOniOS */ = {
 			isa = PBXGroup;
 			children = (
-				07B5F0951F2315AA002BB553 /* AppDelegate.swift */,
-				07B5F0971F2315AA002BB553 /* ViewController.swift */,
-				07B5F0991F2315AA002BB553 /* Main.storyboard */,
+				07B5F0A81F23B197002BB553 /* resouce */,
+				07B5F0A71F23B18C002BB553 /* src */,
 				07B5F09C1F2315AA002BB553 /* Assets.xcassets */,
-				07B5F09E1F2315AA002BB553 /* LaunchScreen.storyboard */,
+				07B5F0951F2315AA002BB553 /* AppDelegate.swift */,
 				07B5F0A11F2315AA002BB553 /* Info.plist */,
 			);
 			path = BleOniOS;
+			sourceTree = "<group>";
+		};
+		07B5F0A71F23B18C002BB553 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				07B5F0A91F23B26A002BB553 /* utils */,
+				07B5F0971F2315AA002BB553 /* ViewController.swift */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		07B5F0A81F23B197002BB553 /* resouce */ = {
+			isa = PBXGroup;
+			children = (
+				07B5F09E1F2315AA002BB553 /* LaunchScreen.storyboard */,
+				07B5F0991F2315AA002BB553 /* Main.storyboard */,
+			);
+			name = resouce;
+			sourceTree = "<group>";
+		};
+		07B5F0A91F23B26A002BB553 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				07B5F0AA1F23B38F002BB553 /* BleManager.swift */,
+				07B5F0AC1F23D2C5002BB553 /* BleConst.swift */,
+			);
+			name = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,6 +120,10 @@
 		07B5F08A1F2315AA002BB553 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					0,
+					1,
+				);
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "たけのこ";
@@ -136,8 +170,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07B5F0AB1F23B38F002BB553 /* BleManager.swift in Sources */,
 				07B5F0981F2315AA002BB553 /* ViewController.swift in Sources */,
 				07B5F0961F2315AA002BB553 /* AppDelegate.swift in Sources */,
+				07B5F0AD1F23D2C5002BB553 /* BleConst.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +202,7 @@
 		07B5F0A21F2315AA002BB553 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -217,7 +253,7 @@
 		07B5F0A31F2315AA002BB553 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -301,6 +337,7 @@
 				07B5F0A61F2315AA002BB553 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
