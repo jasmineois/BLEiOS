@@ -18,12 +18,9 @@ protocol BleManagerProtocol: class, CBCentralManagerDelegate, CBPeripheralDelega
     /// （変数）見つけたサービス
     var servidces: [CBService] { get }
     /// （変数）見つけたキャラスティック
-    var readCharacteristics: [CBCharacteristic] { get }
-    var writeCharacteristics: [CBCharacteristic] { get }
-    var notifyCharacteristics: [CBCharacteristic] { get }
+    var bleCharacteristics: [BleCharacteristic] { get }
     /// （変数）見つけたディスクリプト
-    var readDescriptors: [CBDescriptor] { get }
-    var writeDescriptors: [CBDescriptor] { get }
+    var descriptors: [CBDescriptor] { get }
     /// UUIDを検索
     func scan(serviceUUID : [CBUUID]?, characteristicsUUID : [CBUUID]?)
     /// BLE（ペリフェラル）に接続開始
@@ -50,15 +47,11 @@ class BleManager: NSObject, BleManagerProtocol  {
     var servidces: [CBService] = []
     
     /// （変数）見つけたキャラスティック
-    var characteristics: [CBCharacteristic] = []
-    var readCharacteristics: [CBCharacteristic] = []
-    var writeCharacteristics: [CBCharacteristic] = []
-    var notifyCharacteristics: [CBCharacteristic] = []
+    private var characteristics: [CBCharacteristic] = []
+    var bleCharacteristics: [BleCharacteristic] = []
     
     /// （変数）見つけたディスクリプト
     var descriptors: [CBDescriptor] = []
-    var readDescriptors: [CBDescriptor] = []
-    var writeDescriptors: [CBDescriptor] = []
     
     var serviceUUID : [CBUUID]!;
     var characteristicsUUID : [CBUUID]!;
@@ -223,14 +216,18 @@ class BleManager: NSObject, BleManagerProtocol  {
     ///   - error: エラー情報
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         print("didUpdateValueFor peripheral: \(peripheral.identifier.uuidString) characteristic \(characteristic)")
+        var bChar = BleCharacteristic(type: BleCharacteristicType.read, uuid: characteristic.uuid)
         
         var addFlag = false
-        for (index, chara) in self.readCharacteristics.enumerated() where chara.uuid.uuidString == characteristic.uuid.uuidString {
-            self.readCharacteristics[index] = characteristic
+        for (index, chara) in self.bleCharacteristics.enumerated() where chara.type == bChar.type && chara.uuid.uuidString == bChar.uuid.uuidString {
+            bChar = self.bleCharacteristics[index]
+            bChar.value = characteristic.value
+            self.bleCharacteristics[index] = bChar
             addFlag = true
         }
         if !addFlag {
-            self.readCharacteristics.append(characteristic)
+            bChar.value = characteristic.value
+            self.bleCharacteristics.append(bChar)
         }
     }
     
@@ -250,14 +247,15 @@ class BleManager: NSObject, BleManagerProtocol  {
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor descriptor: CBDescriptor, error: Error?) {
         print("didUpdateValueFor peripheral: \(peripheral.identifier.uuidString) descriptor \(descriptor)")
         
-        var addFlag = false
-        for (index, descr) in self.readDescriptors.enumerated() where (descr.uuid.uuidString == descriptor.uuid.uuidString)
-                && (descr.characteristic.uuid.uuidString == descriptor.characteristic.uuid.uuidString) {
-            self.readDescriptors[index] = descriptor
-            addFlag = true
-        }
-        if !addFlag {
-            self.readDescriptors.append(descriptor)
+        for (index, chara) in self.bleCharacteristics.enumerated() where (chara.uuid.uuidString == descriptor.characteristic.uuid.uuidString) {
+            var newChara = chara
+            switch descriptor.uuid.uuidString {
+            case "2901": newChara.descript  = castValue(descriptor.value)
+            case "2902": newChara.conf      = castValue(descriptor.value)
+            case "2904": newChara.format    = castFormat(descriptor.value)
+            default: break
+            }
+            self.bleCharacteristics[index] = newChara
         }
     }
     
@@ -276,14 +274,16 @@ class BleManager: NSObject, BleManagerProtocol  {
     ///   - error: エラー情報
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         print("didUpdateNotifFor peripheral: \(peripheral.identifier.uuidString) characteristic \(characteristic)")
+        var bChar = BleCharacteristic(type: BleCharacteristicType.notify, uuid: characteristic.uuid)
+        bChar.value = characteristic.value
         
         var addFlag = false
-        for (index, chara) in self.notifyCharacteristics.enumerated() where chara.uuid.uuidString == characteristic.uuid.uuidString {
-            self.notifyCharacteristics[index] = characteristic
+        for (index, chara) in self.bleCharacteristics.enumerated() where  chara.type == bChar.type && chara.uuid.uuidString == bChar.uuid.uuidString  {
+            self.bleCharacteristics[index] = bChar
             addFlag = true
         }
         if !addFlag {
-            self.notifyCharacteristics.append(characteristic)
+            self.bleCharacteristics.append(bChar)
         }
     }
     
@@ -297,5 +297,20 @@ class BleManager: NSObject, BleManagerProtocol  {
     /// スキャンを中止
     func stopScan() {
         self.centralManager.stopScan()
+    }
+    
+    func castValue(_ value: Any?) -> String {
+        var str = value as? String
+        if str == nil {
+            str = (value as? Int)?.description
+        }
+        if str == nil {
+            str = (value as? Data)?.toString()
+        }
+        return str ?? "<NOT CAST>"
+    }
+    
+    func castFormat(_ value: Any?) -> Format? {
+        return Format(rawValue: (value as? Data)?.toUInt8()[0] ?? 0)
     }
 }

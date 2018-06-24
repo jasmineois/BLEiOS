@@ -90,32 +90,22 @@ class ViewModel: ViewModelProtocol {
                 value: ""
             ))
         }
-        for characteristic in self.bleManager.readCharacteristics {
+        for characteristic in self.bleManager.bleCharacteristics {
+            var str = characteristic.value?.toString()
+            if characteristic.format == Format.​​​​utf8 {
+                str = String(data: characteristic.value!, encoding: .utf8)
+            }
             characteristicList.append(TableCell(
-                name: "[read]" + characteristic.uuid.uuidString,
-                identifier: characteristic.description,
-                value: characteristic.value?.toString() ?? ""
+                name: "\(characteristic.type) \(characteristic.uuid.uuidString)",
+                identifier: "\(characteristic.format)",
+                value: "\(str)"
             ))
         }
-        for characteristic in self.bleManager.writeCharacteristics {
-            characteristicList.append(TableCell(
-                name: "[write]" + characteristic.uuid.uuidString,
-                identifier: characteristic.description,
-                value: characteristic.value?.toString() ?? ""
-            ))
-        }
-        for characteristic in self.bleManager.notifyCharacteristics {
-            characteristicList.append(TableCell(
-                name: "[notify]" + characteristic.uuid.uuidString,
-                identifier: characteristic.description,
-                value: characteristic.value?.toString() ?? ""
-            ))
-        }
-        for descriptor in self.bleManager.readDescriptors {
+        for descriptor in self.bleManager.descriptors {
             descriptorList.append(TableCell(
-                name: "[read]" + descriptor.uuid.uuidString,
-                identifier: descriptor.description,
-                value: ""
+                name: "\(descriptor.uuid.uuidString)",
+                identifier: "\(descriptor.uuid)",
+                value: "\(descriptor.value)"
             ))
         }
         vc.update()

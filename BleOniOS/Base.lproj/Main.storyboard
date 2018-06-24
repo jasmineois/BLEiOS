@@ -83,6 +83,45 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptorCell" rowHeight="60" id="AvF-BD-uMr">
+                                                <rect key="frame" x="0.0" y="128" width="382" height="60"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AvF-BD-uMr" id="Eee-bW-snS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="59.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="IJG-m2-aEB">
+                                                            <rect key="frame" x="16" y="0.0" width="350" height="59.666666666666664"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfe-ae-VUj">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="116.66666666666667" height="59.666666666666664"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lD3-eW-8RR">
+                                                                    <rect key="frame" x="116.66666666666666" y="0.0" width="116.66666666666666" height="59.666666666666664"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c47-3m-pO7">
+                                                                    <rect key="frame" x="233.33333333333334" y="0.0" width="116.66666666666666" height="59.666666666666664"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="IJG-m2-aEB" firstAttribute="leading" secondItem="Eee-bW-snS" secondAttribute="leading" constant="16" id="0Mm-jJ-BSf"/>
+                                                        <constraint firstAttribute="bottom" secondItem="IJG-m2-aEB" secondAttribute="bottom" id="8JW-nd-Tcn"/>
+                                                        <constraint firstItem="IJG-m2-aEB" firstAttribute="top" secondItem="Eee-bW-snS" secondAttribute="top" id="ZDz-vo-VDh"/>
+                                                        <constraint firstAttribute="trailing" secondItem="IJG-m2-aEB" secondAttribute="trailing" constant="16" id="nSo-HQ-Wg3"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
                                         </prototypes>
                                     </tableView>
                                 </subviews>

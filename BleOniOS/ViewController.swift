@@ -61,7 +61,9 @@ class ViewController: UIViewController, ViewControllerCallback, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell: UITableViewCell = (indexPath.section != 3)
+            ? tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            : tableView.dequeueReusableCell(withIdentifier: "descriptorCell", for: indexPath)
         let label1: UILabel = cell.viewWithTag(1) as! UILabel
         let label2: UILabel = cell.viewWithTag(2) as! UILabel
         let label3: UILabel = cell.viewWithTag(3) as! UILabel
