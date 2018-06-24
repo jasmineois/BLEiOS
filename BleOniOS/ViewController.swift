@@ -8,43 +8,92 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+protocol  ViewControllerCallback {
+    func update()
+}
+
+class ViewController: UIViewController, ViewControllerCallback, UITableViewDelegate, UITableViewDataSource {
+
+    var viewModel: ViewModelProtocol!
     
-    var bleManager : BleManager!
+    @IBOutlet var button: UIButton!
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var indicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
         print("viewDidLoad called.")
-        bleManager = BleManager();
+        viewModel = ViewModel(bleManager: BleManager(), vc: self)
+        button.addTarget(self, action: #selector(self.tapButton), for: UIControlEvents.touchDown)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView(frame: .zero)
+        indicator.hidesWhenStopped = true
+        self.update()
+    }
+    
+    @objc func tapButton() {
+        print("tap button.")
+        viewModel.onClickButton()
+    }
+    
+    func update() {
+        tableView.reloadData()
+        button.setTitle(viewModel.status.rawValue, for: UIControlState.normal)
+        viewModel.status != Status.READY ? indicator.startAnimating() : indicator.stopAnimating()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return ["Peripheral", "Service", "Characteristic", "Descriptor"][section]
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:     return viewModel.peripheralList.count
+        case 1:     return viewModel.serviceList.count
+        case 2:     return viewModel.characteristicList.count
+        default:    return viewModel.descriptorList.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = (indexPath.section != 3)
+            ? tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            : tableView.dequeueReusableCell(withIdentifier: "descriptorCell", for: indexPath)
+        let label1: UILabel = cell.viewWithTag(1) as! UILabel
+        let label2: UILabel = cell.viewWithTag(2) as! UILabel
+        let label3: UILabel = cell.viewWithTag(3) as! UILabel
+        switch indexPath.section {
+        case 0:
+            label1.text = viewModel.peripheralList[indexPath.row].name
+            label2.text = viewModel.peripheralList[indexPath.row].identifier
+            label3.text = viewModel.peripheralList[indexPath.row].value
+        case 1:
+            label1.text = viewModel.serviceList[indexPath.row].name
+            label2.text = viewModel.serviceList[indexPath.row].identifier
+            label3.text = viewModel.serviceList[indexPath.row].value
+        case 2:
+            label1.text = viewModel.characteristicList[indexPath.row].name
+            label2.text = viewModel.characteristicList[indexPath.row].identifier
+            label3.text = viewModel.characteristicList[indexPath.row].value
+        default:
+            label1.text = viewModel.descriptorList[indexPath.row].name
+            label2.text = viewModel.descriptorList[indexPath.row].identifier
+            label3.text = viewModel.descriptorList[indexPath.row].value
+            // label3.isHidden =  label3.text == ""
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.onClickTableCell(index: indexPath.row)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    // Up Button
-    @IBAction func onClickForUpButton(_ sender: UIButton) {
-        print(sender.tag)
-        if !bleManager.peripheralReady { return }
-        var val: Int!
-        switch sender.tag {
-            case 1001: val = 1 // UP
-            case 1002: val = 2 // LEFT
-            case 1003: val = 3 // DOWN
-            case 1004: val = 4 // RIGHT
-        default: val = 0
-        }
-        let data: NSData = NSData.init(bytes: &val, length: 1)
-        bleManager.peripheral.writeValue(data as Data, for: bleManager.characteristic, type: .withoutResponse)
-    }
-    
-    // Menu Button
-    @IBAction func onClickForMenuButton(_ sender: UIButton) {
-        bleManager.scan(serviceUUID: BleConst.U_SERVICE_BLE_SERIAL,characteristicsUUID: BleConst.U_UUID_WRITE)
-    }
-    
 }
-

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0794C87820DE53D700F936CF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794C87720DE53D700F936CF /* ViewModel.swift */; };
+		079CA2E520DEA1F800F0C270 /* BleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079CA2E420DEA1F800F0C270 /* BleExtensions.swift */; };
 		07B5F0961F2315AA002BB553 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B5F0951F2315AA002BB553 /* AppDelegate.swift */; };
 		07B5F0981F2315AA002BB553 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B5F0971F2315AA002BB553 /* ViewController.swift */; };
 		07B5F09B1F2315AA002BB553 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B5F0991F2315AA002BB553 /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0794C87720DE53D700F936CF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		079CA2E420DEA1F800F0C270 /* BleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleExtensions.swift; sourceTree = "<group>"; };
 		07B5F0921F2315AA002BB553 /* BleOniOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BleOniOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B5F0951F2315AA002BB553 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07B5F0971F2315AA002BB553 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +76,7 @@
 			children = (
 				07B5F0A91F23B26A002BB553 /* utils */,
 				07B5F0971F2315AA002BB553 /* ViewController.swift */,
+				0794C87720DE53D700F936CF /* ViewModel.swift */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -90,6 +95,7 @@
 			children = (
 				07B5F0AA1F23B38F002BB553 /* BleManager.swift */,
 				07B5F0AC1F23D2C5002BB553 /* BleConst.swift */,
+				079CA2E420DEA1F800F0C270 /* BleExtensions.swift */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -130,6 +136,7 @@
 				TargetAttributes = {
 					07B5F0911F2315AA002BB553 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 459NR2J9TV;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -171,9 +178,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				07B5F0AB1F23B38F002BB553 /* BleManager.swift in Sources */,
+				079CA2E520DEA1F800F0C270 /* BleExtensions.swift in Sources */,
 				07B5F0981F2315AA002BB553 /* ViewController.swift in Sources */,
 				07B5F0961F2315AA002BB553 /* AppDelegate.swift in Sources */,
 				07B5F0AD1F23D2C5002BB553 /* BleConst.swift in Sources */,
+				0794C87820DE53D700F936CF /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +307,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 459NR2J9TV;
 				INFOPLIST_FILE = BleOniOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.takenoko.BleOniOS;
@@ -310,6 +320,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 459NR2J9TV;
 				INFOPLIST_FILE = BleOniOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.takenoko.BleOniOS;
