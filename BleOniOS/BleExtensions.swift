@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias Manager = BleManagerVariable & BleManagerProtocol
+
 extension Data {
     
     func toString() -> String {
@@ -19,5 +21,21 @@ extension Data {
     
     func toUInt8() -> [UInt8] {
         return [UInt8](self)
+    }
+}
+
+struct BleUtil {
+    static func castValue(_ value: Any?) -> String {
+        var str = value as? String
+        if str == nil {
+            str = (value as? Int)?.description
+        }
+        if str == nil {
+            str = (value as? Data)?.toString()
+        }
+        return str ?? "<NOT CAST>"
+    }
+    static func castFormat(_ value: Any?) -> Format? {
+        return Format(rawValue: (value as? Data)?.toUInt8()[0] ?? 0)
     }
 }

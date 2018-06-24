@@ -33,7 +33,7 @@ protocol ViewModelProtocol {
 
 class ViewModel: ViewModelProtocol {
     
-    var bleManager: BleManagerProtocol!
+    private var bleManager: Manager!
     var vc: ViewControllerCallback!
     
     var logText = ""
@@ -43,7 +43,7 @@ class ViewModel: ViewModelProtocol {
     var characteristicList: [TableCell] = []
     var descriptorList: [TableCell] = []
     
-    init(bleManager: BleManagerProtocol, vc: ViewControllerCallback) {
+    init(bleManager: Manager, vc: ViewControllerCallback) {
         self.bleManager = bleManager
         self.vc = vc
         Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.timerUpdate), userInfo: nil, repeats: true)
@@ -53,7 +53,7 @@ class ViewModel: ViewModelProtocol {
     func onClickButton() {
         print("onClickButton")
         self.status = Status.SCANNING
-        self.bleManager.scan(serviceUUID: nil, characteristicsUUID: nil)
+        self.bleManager.scan(serviceUUID: nil)
         if !self.bleManager.peripheralReady { return }
     }
     
@@ -61,7 +61,7 @@ class ViewModel: ViewModelProtocol {
         print("onClickTableCell")
         self.status = Status.PAIRING
         self.bleManager.stopScan()
-        self.bleManager.connectPeripheral(peripheral: self.bleManager.discoverdPeripheral[index])
+        self.bleManager.connectPeripheral(peripheral: self.bleManager.discoverdGATT[index].peripheral)
     }
     
     func writeValue() {
@@ -76,37 +76,33 @@ class ViewModel: ViewModelProtocol {
         serviceList = []
         characteristicList = []
         descriptorList = []
-        for peripheral in self.bleManager.discoverdPeripheral {
+        for gatt in self.bleManager.discoverdGATT {
             peripheralList.append(TableCell(
-                name: peripheral.name ?? "",
-                identifier: peripheral.identifier.uuidString,
+                name: gatt.peripheral.name ?? "",
+                identifier: gatt.peripheral.identifier.uuidString,
                 value: ""
             ))
-        }
-        for servidce in self.bleManager.servidces {
-            serviceList.append(TableCell(
-                name: servidce.uuid.uuidString,
-                identifier: servidce.description,
-                value: ""
-            ))
-        }
-        for characteristic in self.bleManager.bleCharacteristics {
-            var str = characteristic.value?.toString()
-            if characteristic.format == Format.​​​​utf8 {
-                str = String(data: characteristic.value!, encoding: .utf8)
+            for servidce in gatt.services {
+                serviceList.append(TableCell(
+                    name: servidce.uuid.uuidString,
+                    identifier: servidce.description,
+                    value: ""
+                ))
             }
-            characteristicList.append(TableCell(
-                name: "\(characteristic.type) \(characteristic.uuid.uuidString)",
-                identifier: "\(characteristic.format)",
-                value: "\(str)"
-            ))
-        }
-        for descriptor in self.bleManager.descriptors {
-            descriptorList.append(TableCell(
-                name: "\(descriptor.uuid.uuidString)",
-                identifier: "\(descriptor.uuid)",
-                value: "\(descriptor.value)"
-            ))
+            for characteristic in gatt.characteristics {
+                characteristicList.append(TableCell(
+                    name: "\(characteristic.value.uuid.uuidString)",
+                    identifier: "\(characteristic.value)",
+                    value: "\(characteristic.value.value)"
+                ))
+            }
+            for descriptor in gatt.descriptors {
+                descriptorList.append(TableCell(
+                    name: "\(descriptor.value.uuid.uuidString)",
+                    identifier: "\(descriptor.value.uuid)",
+                    value: "\(descriptor.value.value)"
+                ))
+            }
         }
         vc.update()
     }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0794C87820DE53D700F936CF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794C87720DE53D700F936CF /* ViewModel.swift */; };
 		079CA2E520DEA1F800F0C270 /* BleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079CA2E420DEA1F800F0C270 /* BleExtensions.swift */; };
+		079CA2E720DFF57D00F0C270 /* BleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079CA2E620DFF57D00F0C270 /* BleDelegate.swift */; };
+		079CA2E920E001CE00F0C270 /* BleGATT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079CA2E820E001CE00F0C270 /* BleGATT.swift */; };
 		07B5F0961F2315AA002BB553 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B5F0951F2315AA002BB553 /* AppDelegate.swift */; };
 		07B5F0981F2315AA002BB553 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B5F0971F2315AA002BB553 /* ViewController.swift */; };
 		07B5F09B1F2315AA002BB553 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B5F0991F2315AA002BB553 /* Main.storyboard */; };
@@ -21,6 +23,8 @@
 /* Begin PBXFileReference section */
 		0794C87720DE53D700F936CF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		079CA2E420DEA1F800F0C270 /* BleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleExtensions.swift; sourceTree = "<group>"; };
+		079CA2E620DFF57D00F0C270 /* BleDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleDelegate.swift; sourceTree = "<group>"; };
+		079CA2E820E001CE00F0C270 /* BleGATT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleGATT.swift; sourceTree = "<group>"; };
 		07B5F0921F2315AA002BB553 /* BleOniOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BleOniOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B5F0951F2315AA002BB553 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07B5F0971F2315AA002BB553 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -93,7 +97,9 @@
 		07B5F0A91F23B26A002BB553 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				079CA2E820E001CE00F0C270 /* BleGATT.swift */,
 				07B5F0AA1F23B38F002BB553 /* BleManager.swift */,
+				079CA2E620DFF57D00F0C270 /* BleDelegate.swift */,
 				07B5F0AC1F23D2C5002BB553 /* BleConst.swift */,
 				079CA2E420DEA1F800F0C270 /* BleExtensions.swift */,
 			);
@@ -180,9 +186,11 @@
 				07B5F0AB1F23B38F002BB553 /* BleManager.swift in Sources */,
 				079CA2E520DEA1F800F0C270 /* BleExtensions.swift in Sources */,
 				07B5F0981F2315AA002BB553 /* ViewController.swift in Sources */,
+				079CA2E920E001CE00F0C270 /* BleGATT.swift in Sources */,
 				07B5F0961F2315AA002BB553 /* AppDelegate.swift in Sources */,
 				07B5F0AD1F23D2C5002BB553 /* BleConst.swift in Sources */,
 				0794C87820DE53D700F936CF /* ViewModel.swift in Sources */,
+				079CA2E720DFF57D00F0C270 /* BleDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
